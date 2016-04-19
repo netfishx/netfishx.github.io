@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>blog</title>
+  <title>react+redux 半年实践后的一些痛点和改进方案(1) | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="blog">
-<meta property="og:url" content="http://netfishx.github.io/index.html">
+  <meta name="description" content="一转眼我们已经在诊疗圈项目和 DR 后台项目中使用 react+redux 半年多时间了。不得不承认，这套技术方案在前端开发领域威力无穷，堪称伟大。然而随着项目的逐渐迭代，其中的一些不足和痛点也显示了出来。今天我想重点集中在 redux 负责的逻辑部分，同时尝试寻找一些解决方案。与此同时，我想借用 redux 作者 Dan Abramov 的一句话：
+
+The solution should fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react+redux 半年实践后的一些痛点和改进方案(1)">
+<meta property="og:url" content="http://netfishx.github.io/2016/04/19/react-redux半年实践后的一些痛点和改进方案/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description">
+<meta property="og:description" content="一转眼我们已经在诊疗圈项目和 DR 后台项目中使用 react+redux 半年多时间了。不得不承认，这套技术方案在前端开发领域威力无穷，堪称伟大。然而随着项目的逐渐迭代，其中的一些不足和痛点也显示了出来。今天我想重点集中在 redux 负责的逻辑部分，同时尝试寻找一些解决方案。与此同时，我想借用 redux 作者 Dan Abramov 的一句话：
+
+The solution should fo">
+<meta property="og:updated_time" content="2016-04-19T08:26:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="react+redux 半年实践后的一些痛点和改进方案(1)">
+<meta name="twitter:description" content="一转眼我们已经在诊疗圈项目和 DR 后台项目中使用 react+redux 半年多时间了。不得不承认，这套技术方案在前端开发领域威力无穷，堪称伟大。然而随着项目的逐渐迭代，其中的一些不足和痛点也显示了出来。今天我想重点集中在 redux 负责的逻辑部分，同时尝试寻找一些解决方案。与此同时，我想借用 redux 作者 Dan Abramov 的一句话：
+
+The solution should fo">
   
     <link rel="alternate" href="/atom.xml" title="blog" type="application/atom+xml">
   
@@ -62,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-react-redux半年实践后的一些痛点和改进方案" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-react-redux半年实践后的一些痛点和改进方案" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/19/react-redux半年实践后的一些痛点和改进方案/" class="article-date">
   <time datetime="2016-04-19T06:43:30.000Z" itemprop="datePublished">2016-04-19</time>
@@ -77,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/19/react-redux半年实践后的一些痛点和改进方案/">react+redux 半年实践后的一些痛点和改进方案(1)</a>
+    <h1 class="article-title" itemprop="name">
+      react+redux 半年实践后的一些痛点和改进方案(1)
     </h1>
   
 
@@ -133,10 +138,9 @@
     </footer>
   </div>
   
-</article>
-
-
+    
   
+</article>
 
 </section>
         
