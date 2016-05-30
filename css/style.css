@@ -628,6 +628,8 @@ a.article-title:hover {
   font-family: Georgia, "Times New Roman", serif;
   border-left: 4px solid #ddd;
   margin: 1.6em 20px;
+  padding: 0 15px;
+  color: #777;
 }
 .article-entry blockquote footer {
   font-size: 14px;
