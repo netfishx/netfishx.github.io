@@ -51,9 +51,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS-каналы"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Поиск"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://netfishx.github.io"></form>
@@ -99,7 +99,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://netfishx.github.io/2016/06/20/今天聊聊数学（3）/" data-id="cipownywp0006yx3ooic4k577" class="article-share-link">Partager</a>
+      <a data-url="http://netfishx.github.io/2016/06/20/今天聊聊数学（3）/" data-id="cipoyprjm0004py3oytv4cigc" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
@@ -136,11 +136,11 @@
         <p>书接上回，我提到了组合是有两个重要规则的。今天，我们就重点研究一下他们</p>
 <h2 id="组合的性质"><a href="#组合的性质" class="headerlink" title="组合的性质"></a>组合的性质</h2><p>首先要说明，在所有范畴中，组合是必须遵守以下两个性质的</p>
 <ol>
-<li>组合是可结合的（associative）。<br>这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）<br>用数学语言来说，就是：<blockquote><p>h∘(g∘f) = (h∘g)∘f = h∘g∘f</p>
+<li>组合是可结合的（associative）。<br>这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）<br>用数学语言来说，就是：<blockquote><p><span>$h\circ(g\circ f) = (h\circ g)\circ f = h\circ g\circ f$</span><!-- Has MathJax --></p>
 </blockquote>
 用 haskell 来表达呢，就是这样：<figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">f</span> :: <span class="type">A</span> -&gt; <span class="type">B</span></span><br><span class="line"><span class="title">g</span> :: <span class="type">B</span> -&gt; <span class="type">C</span></span><br><span class="line"><span class="title">h</span> :: <span class="type">C</span> -&gt; <span class="type">D</span></span><br><span class="line"><span class="title">h</span> . (g . f) == (h . g) . f == h . g . f</span><br></pre></td></tr></table></figure>
 这里可以看出，在 Hask 范畴中（haskell 语言表达的范畴），函数组合的结合律表示的很清晰。其他语言表示起来就有些费劲。</li>
-<li>对于任意对象 A，都有一个箭头（arrow），它是组合的最小单位（a unit）。<br>这个箭头，从对象 A 出发，指向对象 A 本身。对象 A 的这个箭头被写作 idA，意思是 identity on A 。<br>当 f 表示从 A 到 B 的一个态射时，我们有：<blockquote><p>f∘idA = f<br>idB∘f = f</p>
+<li>对于任意对象 A，都有一个箭头（arrow），它是组合的最小单位（a unit）。<br>这个箭头，从对象 A 出发，指向对象 A 本身。对象 A 的这个箭头被写作 idA，意思是 identity on A 。<br>当 f 表示从 A 到 B 的一个态射时，我们有：<blockquote><p><span>$f\circ id_A = f$</span><!-- Has MathJax --><br><span>$id_B\circ f = f$</span><!-- Has MathJax --></p>
 </blockquote>
 在编程语言中，恒等箭头实现为一个恒等函数。这个函数接收什么参数，就返回什么结果。尤其重要的是，这个函数对所有类型都能接受。<br>由于牵扯到类型，这里我用 java 语言来展示一下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">Function&lt;T, T&gt; <span class="title">identity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> t -&gt; t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 以上代码来自 jdk8 的官方实现，稍微有点难懂。再看下 haskell 的实现：<figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">id</span> :: a -&gt; a</span><br><span class="line"><span class="title">id</span> x = x</span><br></pre></td></tr></table></figure>
@@ -153,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://netfishx.github.io/2016/06/06/今天聊聊数学（2）/" data-id="cipownywm0004yx3ob3mutjyd" class="article-share-link">Partager</a>
+      <a data-url="http://netfishx.github.io/2016/06/06/今天聊聊数学（2）/" data-id="cipoyprjf0001py3oe0w2vtn9" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
@@ -226,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://netfishx.github.io/2016/05/29/今天聊聊数学（1）/" data-id="cipownywk0003yx3oo5numh04" class="article-share-link">Partager</a>
+      <a data-url="http://netfishx.github.io/2016/05/29/今天聊聊数学（1）/" data-id="cipoyprja0000py3ohhasgjjq" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/">math</a></li></ul>
@@ -299,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://netfishx.github.io/2016/04/19/react-redux半年实践后的一些痛点和改进方案/" data-id="cipownyw60000yx3o666mfykx" class="article-share-link">Partager</a>
+      <a data-url="http://netfishx.github.io/2016/04/19/react-redux半年实践后的一些痛点和改进方案/" data-id="cipoyprjk0003py3o84ukbxm3" class="article-share-link">Поделиться</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -321,7 +321,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Метки</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li></ul>
     </div>
@@ -331,7 +331,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Облако меток</h3>
     <div class="widget tagcloud">
       <a href="/tags/math/" style="font-size: 20px;">math</a> <a href="/tags/react/" style="font-size: 10px;">react</a>
     </div>
@@ -340,7 +340,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Архив</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
@@ -350,7 +350,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Недавние записи</h3>
     <div class="widget">
       <ul>
         
@@ -383,7 +383,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 netfishx<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Создано с помощью <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
