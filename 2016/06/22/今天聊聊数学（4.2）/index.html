@@ -84,25 +84,19 @@
 
 
 
-<meta name="description" content="书接上回，我提到了组合是有两个重要规则的。今天，我们就重点研究一下他们
-组合的性质首先要说明，在所有范畴中，组合是必须遵守以下两个性质的
-
-组合是可结合的（associative）。这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）用数学语言来说，就是：$h\circ(g\circ f) = (h\circ g)\circ f = h\ci">
+<meta name="description" content="继续：）
+作为集合的幺半群幺半群（Monoid）是一个很重要的概念，它是基本算术形成的概念：只要有加法和乘法运算就形成了一个幺半群。在编程中，幺半群无处不在。比如说字符串、列表、foldable的数据结构、并发编程中的  Future、响应式编程中的 event。我们先看一下幺半群的传统定义：一个集合伴随有一个二元运算：$\mu: M \times M \to M$，这个二元运算满足结合律：$(x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="今天聊聊数学（2）">
-<meta property="og:url" content="http://netfishx.github.io/2016/06/06/今天聊聊数学（2）/index.html">
+<meta property="og:title" content="今天聊聊数学（4.2）">
+<meta property="og:url" content="http://netfishx.github.io/2016/06/22/今天聊聊数学（4.2）/index.html">
 <meta property="og:site_name" content="netfishx's blog">
-<meta property="og:description" content="书接上回，我提到了组合是有两个重要规则的。今天，我们就重点研究一下他们
-组合的性质首先要说明，在所有范畴中，组合是必须遵守以下两个性质的
-
-组合是可结合的（associative）。这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）用数学语言来说，就是：$h\circ(g\circ f) = (h\circ g)\circ f = h\ci">
-<meta property="og:updated_time" content="2016-06-21T04:46:03.000Z">
+<meta property="og:description" content="继续：）
+作为集合的幺半群幺半群（Monoid）是一个很重要的概念，它是基本算术形成的概念：只要有加法和乘法运算就形成了一个幺半群。在编程中，幺半群无处不在。比如说字符串、列表、foldable的数据结构、并发编程中的  Future、响应式编程中的 event。我们先看一下幺半群的传统定义：一个集合伴随有一个二元运算：$\mu: M \times M \to M$，这个二元运算满足结合律：$(x">
+<meta property="og:updated_time" content="2016-06-28T07:19:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今天聊聊数学（2）">
-<meta name="twitter:description" content="书接上回，我提到了组合是有两个重要规则的。今天，我们就重点研究一下他们
-组合的性质首先要说明，在所有范畴中，组合是必须遵守以下两个性质的
-
-组合是可结合的（associative）。这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）用数学语言来说，就是：$h\circ(g\circ f) = (h\circ g)\circ f = h\ci">
+<meta name="twitter:title" content="今天聊聊数学（4.2）">
+<meta name="twitter:description" content="继续：）
+作为集合的幺半群幺半群（Monoid）是一个很重要的概念，它是基本算术形成的概念：只要有加法和乘法运算就形成了一个幺半群。在编程中，幺半群无处不在。比如说字符串、列表、foldable的数据结构、并发编程中的  Future、响应式编程中的 event。我们先看一下幺半群的传统定义：一个集合伴随有一个二元运算：$\mu: M \times M \to M$，这个二元运算满足结合律：$(x">
 
 
 
@@ -123,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://netfishx.github.io/2016/06/06/今天聊聊数学（2）/"/>
+  <link rel="canonical" href="http://netfishx.github.io/2016/06/22/今天聊聊数学（4.2）/"/>
 
-  <title> 今天聊聊数学（2） | netfishx's blog </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 今天聊聊数学（4.2） | netfishx's blog </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -245,7 +239,7 @@
             
             
               
-                今天聊聊数学（2）
+                今天聊聊数学（4.2）
               
             
           </h1>
@@ -257,8 +251,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T13:52:10+08:00" content="2016-06-06">
-              2016-06-06
+            <time itemprop="dateCreated" datetime="2016-06-22T16:42:09+08:00" content="2016-06-22">
+              2016-06-22
             </time>
           </span>
 
@@ -285,22 +279,15 @@
       
 
       
-        <p>书接上回，我提到了组合是有两个重要规则的。今天，我们就重点研究一下他们</p>
-<h2 id="组合的性质"><a href="#组合的性质" class="headerlink" title="组合的性质"></a>组合的性质</h2><p>首先要说明，在所有范畴中，组合是必须遵守以下两个性质的</p>
-<ol>
-<li>组合是可结合的（associative）。<br>这说明什么呢？这说明：如果你有三个态射 f、g、h，他们可以被组合，那你就没必要在组合表达式中使用括号。：）<br>用数学语言来说，就是：<blockquote><p><span>$h\circ(g\circ f) = (h\circ g)\circ f = h\circ g\circ f$</span><!-- Has MathJax --></p>
+        <p>继续：）</p>
+<h2 id="作为集合的幺半群"><a href="#作为集合的幺半群" class="headerlink" title="作为集合的幺半群"></a>作为集合的幺半群</h2><p>幺半群（Monoid）是一个很重要的概念，它是基本算术形成的概念：只要有加法和乘法运算就形成了一个幺半群。在编程中，幺半群无处不在。比如说字符串、列表、foldable的数据结构、并发编程中的  Future、响应式编程中的 event。<br>我们先看一下幺半群的传统定义：一个集合伴随有一个二元运算：$\mu: M \times M \to M$，这个二元运算满足结合律：$(x \cdot y) \cdot z = x \cdot (y \cdot z)$ 。同时还要有一个单位元：$1 \in M$，满足 $1 \cdot x = x = x \cdot 1 $ 。<br>举一个最常见的例子吧：包含了0的自然数集合就是一个幺半群。很显然他满足上述的两条定律：</p>
+<blockquote>
+<p>$(a + b) + c = a + (b + c)$<br>$0 + a = a = a + 0$</p>
 </blockquote>
-用 haskell 来表达呢，就是这样：<figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">f</span> :: <span class="type">A</span> -&gt; <span class="type">B</span></span><br><span class="line"><span class="title">g</span> :: <span class="type">B</span> -&gt; <span class="type">C</span></span><br><span class="line"><span class="title">h</span> :: <span class="type">C</span> -&gt; <span class="type">D</span></span><br><span class="line"><span class="title">h</span> . (g . f) == (h . g) . f == h . g . f</span><br></pre></td></tr></table></figure>
-这里可以看出，在 Hask 范畴中（haskell 语言表达的范畴），函数组合的结合律表示的很清晰。其他语言表示起来就有些费劲。</li>
-<li>对于任意对象 A，都有一个箭头（arrow），它是组合的最小单位（a unit）。<br>这个箭头，从对象 A 出发，指向对象 A 本身。对象 A 的这个箭头被写作 idA，意思是 identity on A 。<br>当 f 表示从 A 到 B 的一个态射时，我们有：<blockquote><p><span>$f\circ id_A = f$</span><!-- Has MathJax --><br><span>$id_B\circ f = f$</span><!-- Has MathJax --></p>
-</blockquote>
-在编程语言中，恒等箭头实现为一个恒等函数。这个函数接收什么参数，就返回什么结果。尤其重要的是，这个函数对所有类型都能接受。<br>由于牵扯到类型，这里我用 java 语言来展示一下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">Function&lt;T, T&gt; <span class="title">identity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> t -&gt; t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-以上代码来自 jdk8 的官方实现，稍微有点难懂。再看下 haskell 的实现：<figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">id</span> :: a -&gt; a</span><br><span class="line"><span class="title">id</span> x = x</span><br></pre></td></tr></table></figure>
-这里我简单介绍下 haskell 的语法：第一行叫做类型声明，a 是一个类型变量，这一行表达的是：输入和输出的类型是一样的。第二行的代码很好懂：输入和输出是一样的。<br>所以如果要用 haskell 来表达我们上面用数学语言定义的规则，就是：<figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">f</span> . id == f</span><br><span class="line"><span class="title">id</span> . f == f</span><br></pre></td></tr></table></figure>
-我相信，讲到这里，大家都可以理解 id 函数了。但其实还有一个疑问，我们为什么需要这么一个函数？<br>有一个简单的类比，范畴中的单位元就相当于数字中的0。这样的一个单位元，在处理符号变量的时候特别有用。在历史上，古罗马人很早就发展出了数字系统，并利用他们的数字系统在工程上实现了伟大的成就。但是他们的数字系统没有0，所以他们没有发展出代数学。而阿拉伯人和波斯人因为掌握了0的概念，因此很好的掌握了代数学。当我们讲到高阶函数时，恒等函数就会体现出他的价值。高阶函数以函数为对象处理，相当于函数的代数。</li>
-</ol>
-<h2 id="组合是编程的本质"><a href="#组合是编程的本质" class="headerlink" title="组合是编程的本质"></a>组合是编程的本质</h2><p>在之前用了这么多时间探索组合，我想花一点时间来探索下组合与编程的关系。<br>首先，编程是什么？我认为，编程是一个将人类语言翻译成机器语言的过程。本质上，我们是希望告诉计算机去做什么。我们可以回顾下自己编程的过程，在编程的时候，我们会把一个复杂的问题，分解成一个个小的问题，如果小问题还是大，我们继续将它分解成更小的问题。最后，我们写出这些小问题的解，然后将他们<strong><em>组合</em></strong>起来。<br>人类之所以需要将复杂问题分解开来，并不是因为计算机的限制，而是因为人类自身的原因。人类的大脑在同时只能处理很少的概念，这导致了我们都很喜欢结构化的代码，因为非结构化的东西是很难被我们的大脑消化和理解的。所以，通常意义上我们所说的“优美的”代码，事实上意味着它只是更容易被人类的大脑所处理。<br>那么，接下来我们就很清楚了，如何写出更优美的代码，某种意义上等价于如何更好的组合那些小的代码块。这里简单对比一下面向对象编程和函数式编程两种编程范式，面向对象中类和接口的声明就是用于组合的消息，函数式编程则利用函数的声明来组合。<br>范畴论是一门研究对象之间关系的学问，它不会关心对象本身的性质。这样的一门研究对于编程的指导是显而易见的。比方说面向对象编程中，我们期待的是通过对象的组合来解决复杂问题。但现实中，我们常常要通过了解对象内部来理解他们如何组合，这时面向对象所标榜的优势就消失不见了。</p>
-<p>今天的后半段内容，我大量参考了 wiki 上的相关内容和网上的一些文章，但依然很难明确表述自身的观点。请大家多多见谅。</p>
+<p>我们可以看一下 haskell 中对于幺半群的定义，这个更容易理解一些：<br><figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Monoid</span> m <span class="keyword">where</span></span></span><br><span class="line">    mempty :: m</span><br><span class="line">    mappend :: m -&gt; m -&gt; m</span><br></pre></td></tr></table></figure><br>这里我简单介绍一下 haskell 中的 class，这里的 class 被称作类型类，顾名思义就是类型的类，我们可以简单类比为其他语言中的接口（其实还是有很大区别的）。我们用 String 来实现 Monoid 演示一下，其实就是实现 mempty 和 mappend 函数，因为在 class 中的函数只是类型声明。<br><figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monoid</span> <span class="type">String</span> <span class="keyword">where</span></span></span><br><span class="line">    mempty = <span class="string">""</span></span><br><span class="line">    mappend = (++)</span><br></pre></td></tr></table></figure><br>这里再额外说明一下，haskell 中允许用函数实现函数。上面的实现说明：字符串中的单位元就是空字符串，因为任意字符串加上空字符串等于本身；“++”是 haskell 中 list 的拼接函数，字符串本身就是 char 的 list，所以“++”可以用来连接字符串。</p>
+<h2 id="幺半群作为范畴"><a href="#幺半群作为范畴" class="headerlink" title="幺半群作为范畴"></a>幺半群作为范畴</h2><p>上面的一段相信大家都可以很轻松的看懂了，然而我们现在想要讨论的是范畴论。我们知道，范畴论关注的不再是集合，而是对象和态射。所以，我们现在来看一下，把关注点转移到态射之上，会发生什么变化。<br>当我们的关注点变成了态射，我们思考的二元运算就不仅仅是加法乘法之类，也可能是“moving”或者“shifting”这些（抱歉，实在不知道怎么翻译）。我们思考一种运算：在自然数上加 5，它会把 0 变换成5，会把 2 变换成 7。这样我们就有了一个函数：5 的 adder。显然的，对于任意自然数 $n$，我们都可以有一个$n$的 adder。<br>我们来看看，这些 adder 怎么组合？一个 5 的 adder 组合一个 7 的 adder，得到一个 12 的 adder。所以很明显，adder 的组合等价于加法规则。<br>我们再来看一个特例：0 的 adder，其他的 adder 与它的组合还是自身。所以 0 的 adder 是一个恒等态射。<br>我们注意一下：adder 的组合是满足结合律的，而且我们也有一个恒等态射了。<br>题外话：我们观察一下 mappend 的类型声明：<br><figure class="highlight hs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">mappend</span> :: m -&gt; m -&gt; m</span><br></pre></td></tr></table></figure><br>刚才我们把幺半群作为集合来理解的时候，可以认为这个函数是接受两个集合中的对象，生成一个对象。现在我们可以这么理解：m -&gt; (m -&gt; m)，函数接受一个元素，生成一个接受一个元素的函数（想想 adder）。<br>我们现在忘掉自然数集的概念，把它视为一个单一的对象，它伴随着一堆 adder 态射。一个幺半群，是一个单一对象的范畴。范畴论中幺半群被表述为：带有一个态射集合，这些态射符合组合规则（可以回忆下我们前面提到的两条组合公理：<strong>结合律和单位元</strong>）。<br>从上面的过程，我们可以给出一个结论：我们总是可以从一个单对象的范畴中抽出一个由态射组成的集合。我们用 $\bullet$ 表示单个对象，用 $\mathbf{B}M$ 表示这个范畴，有定义：<br>$$<br>M = Hom_{\mathbf{B}M}(\bullet, \bullet)<br>$$<br>我们如果从 $M$ 中抽取两个元素 $f,g$，它们的组合 $g \circ f$ 总是存在，因为这些态射的源对象和目标对象是同一个东西。恒等态射也显然存在。因此我们总是可以从一个幺半群范畴中抽取出一个幺半群集合，他们是等价的。</p>
+<hr>
+<p>查了些资料，我上面的论述不是很严谨，不过足够严谨的描述对于我们理解范畴和 monoid 也不是特别重要，所以就跳过了。<br>接下来就要慢慢来到最有趣的部分了，因为 hom-set 中的元素都可以看做态射，遵循组合公理，也可以看做集合中的点。态射的组合也可以变成集合 $Hom_{\mathbf{B}M}(\bullet, \bullet)$中点的乘法。范畴论中大量有趣的结论都来自于此。</p>
 
       
     </div>
@@ -331,17 +318,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/29/今天聊聊数学（1）/" rel="next" title="今天聊聊数学（1）">
-                <i class="fa fa-chevron-left"></i> 今天聊聊数学（1）
+              <a href="/2016/06/21/今天聊聊数学（4.1）/" rel="next" title="今天聊聊数学（4.1）">
+                <i class="fa fa-chevron-left"></i> 今天聊聊数学（4.1）
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/20/今天聊聊数学（3）/" rel="prev" title="今天聊聊数学（3）">
-                今天聊聊数学（3） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -448,7 +431,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#组合的性质"><span class="nav-number">1.</span> <span class="nav-text">组合的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合是编程的本质"><span class="nav-number">2.</span> <span class="nav-text">组合是编程的本质</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#作为集合的幺半群"><span class="nav-number">1.</span> <span class="nav-text">作为集合的幺半群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#幺半群作为范畴"><span class="nav-number">2.</span> <span class="nav-text">幺半群作为范畴</span></a></li></ol></div>
             
           </div>
         </section>
