@@ -238,6 +238,109 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/12/今天聊聊数学（5.1）/" itemprop="url">
+                  今天聊聊数学（5.1）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T15:47:57+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="日志的复合"><a href="#日志的复合" class="headerlink" title="日志的复合"></a>日志的复合</h2><p>在前面，我们已经尝试过将纯函数作为一个范畴。现在，让我们来试试如何在范畴论中构造一个非纯函数（或者说副作用）。<br>我们先来尝试一个能记日志的函数。在命令式语言中，我们可以这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String log = <span class="string">""</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Bool <span class="title">negate</span><span class="params">(Bool b)</span> </span>&#123;</span><br><span class="line">     log += <span class="string">"Not so! "</span>;</span><br><span class="line">     <span class="keyword">return</span> !b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个函数明显改变了函数以外的内容，这是<strong>副作用</strong>。<br>在现代的编程环境中，由于经常存在并发的情况，所以通常会建议远离可变的全局变量。所以我们可以显式的把日志字符串作为参数传入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.tuple.*;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Pair&lt;Bool, String&gt; <span class="title">negate</span><span class="params">(Bool b, String log)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> Pair.of(!b, log + <span class="string">"Not so! "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>ok，这样的函数变成纯的了，完全不会有任何副作用，也可以被 cache 起来使用。但等一下：日志是被累计的，意味着我们最后要收集这个函数的历史，也意味着我们每次的调用都要传一个日志字符串进去。这样实在是很烦人。<br>我们进一步分析下这个函数，转换一个布尔值是这个函数的主要功能，记日志是一个附属功能。那我们可以化简一下这个函数，把收集日志的工作想办法抽出去一部分：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.tuple.*;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Pair&lt;Bool, String&gt; <span class="title">negate</span><span class="params">(Bool b)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> Pair.of(!b, <span class="string">"Not so! "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这样我们可以在这个函数被调用之后，再用某个专门的日志收集函数来收集了。<br>上面的这个例子有点过于简单，可能很难看出这么折腾的必要性。我们再来一个复杂一点的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toUpper</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">  String result = <span class="string">""</span>;</span><br><span class="line">  result += transform(s) <span class="comment">// 做个转换，懒得写了</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这是一个把字符串转换为大写的函数。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">toWords</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> words(s);<span class="comment">//假设我们有个分隔字符串的辅助函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这是一个把字符串分割为单词的函数。<br>现在我们来给这两个函数加上记录日志的功能：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> A&gt;</span><br><span class="line"><span class="keyword">using</span> Writer = pair&lt;A, <span class="built_in">string</span>&gt;;</span><br></pre></td></tr></table></figure><br>这里是我最头疼的地方，java 的泛型搞不定这个，用 javabean 又太长了，所以借用了 c++ 的语法。上面的意思是定义了一个模板类型，其实是一个 pair 对，第一个元素是类型为 A 的值，第二个元素是字符串。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;Object, String&gt;</span><br></pre></td></tr></table></figure><br>勉强用 java 的泛型来表示，大概这样子。。。（这玩意其实没法用，大家往下看）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Writer&lt;String&gt; <span class="title">toUpper</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">  String result = <span class="string">""</span>;</span><br><span class="line">  result += transform(s) <span class="comment">// 做个转换，懒得写了</span></span><br><span class="line">  <span class="keyword">return</span> Pair.of(result, <span class="string">"toUpper "</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Writer&lt;List&lt;String&gt;&gt; toWords(String s) &#123;</span><br><span class="line">  <span class="keyword">return</span> Pair.of(words(s), <span class="string">"toWords "</span>);<span class="comment">//假设我们有个分隔字符串的辅助函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上面这段代码其实是没法编译通过的，大家结合 Writer 的定义来看。我们在这里给两个函数加上了记录日志的功能。我们下面来写个函数，功能是把字符串转换为大写，然后分隔为词，同时将日志组合起来。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Writer&lt;List&lt;String&gt;&gt; process(String s) &#123;</span><br><span class="line">  Writer&lt;String&gt; s1 = toUpper(s);</span><br><span class="line">  Writer&lt;List&lt;String&gt;&gt; s2 = toWords(s1.getLeft());</span><br><span class="line">  <span class="keyword">return</span> Pair.of(s2.getLeft(), s1.getRight() + s2.getRight());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>好了，大功告成。<br>真的么？如果所有的函数都这么写，估计我们得发疯：重复的代码太多了！！！怎么办呢？我们来抽象一下我们的程序，这里要做的是对函数的组合进行抽象，可以看一下范畴论的方式了。</p>
+<h2 id="Writer-范畴"><a href="#Writer-范畴" class="headerlink" title="Writer 范畴"></a>Writer 范畴</h2><p>我们在以前就看过类型和函数的范畴，以此为起点，我们来看一下以类型为对象，以装饰过的函数为态射的范畴。<br>先写一个简单的例子：一个装饰过的 isEven 函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Pair&lt;Bool, String&gt; <span class="title">isEven</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> Pair.of(n % <span class="number">2</span> == <span class="number">0</span>, <span class="string">"isEven "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个函数除了判断偶数的功能，附带了记日志的功能。但我们依然可以认为它是一个 int 到 Bool 的态射。<br>根据我们以前学过的范畴规则，这个态射可以和任意从 Bool 开始的态射组合。比如这个：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Pair&lt;Bool, String&gt; <span class="title">negate</span><span class="params">(Bool b)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> Pair.of(!b, <span class="string">"Not so! "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>显然我们没法直接组合他们，因为输入输出的类型不匹配。但我们可以这样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Pair&lt;Bool, String&gt; <span class="title">isOdd</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">     Pair&lt;Bool, String&gt; p1 = isEven(n);</span><br><span class="line">     Pair&lt;Bool, String&gt; p2 = negate(p1.getLeft());</span><br><span class="line">     <span class="keyword">return</span> Pair.of(s2.getLeft(), s1.getRight() + s2.getRight());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们现在可以归纳出这样两个函数的组合流程了：</p>
+<ol>
+<li>执行第一个态射对应的装饰函数，得到第一个序对；</li>
+<li>取出第一个序对中的第一个元素，作为参数传给第二个态射对应的装饰函数，得到第二个序对；</li>
+<li>将两次得到的字符串拼起来；</li>
+<li>用第二次得到的计算结果和拼合后的字符串再拼一个序对。</li>
+</ol>
+<p>我们该怎么写针对这种函数的 compose 函数呢？坦白说，我没想出来用 java 该怎么写。在 stackoverflow 上我找到了一个这样的 c++ 实现：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> <span class="keyword">const</span> compose = [](<span class="keyword">auto</span> m1, <span class="keyword">auto</span> m2) &#123;</span><br><span class="line">    <span class="keyword">return</span> [m1, m2](<span class="keyword">auto</span> x) &#123;</span><br><span class="line">        <span class="keyword">auto</span> p1 = m1(x);</span><br><span class="line">        <span class="keyword">auto</span> p2 = m2(p1.first);</span><br><span class="line">        <span class="keyword">return</span> make_pair(p2.first, p1.second + p2.second);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>用 js 其实很容易实现这个函数，但类型信息就丢掉了，所以也不符合要求。我们看下简化后的 process 函数：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Writer&lt;List&lt;String&gt;&gt; process(String s)&#123;</span><br><span class="line">   <span class="keyword">return</span> compose(toUpper, toWords)(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>如果你还记得我在前几章提到过的范畴的定义，就会发现：除了上面的结合律，我们还需要找出来这个范畴的单位元，这个态射应该看起来是这样的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Writer&lt;A&gt; <span class="title">identity</span><span class="params">(A)</span></span>;</span><br></pre></td></tr></table></figure><br>从恒等态射的定义上来看，这个 identity 函数不应当改变他的参数，而且只能返回一个空字符串。于是我们得到了：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里是伪代码</span></span><br><span class="line"><span class="function">Writer&lt;A&gt; <span class="title">identity</span><span class="params">(A a)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> Pair.of(a, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们很容易想到，这样一个范畴是一个合法的范畴。我们得到的第一个元素其实就是普通的函数组合，而第二个元素执行的是简单的字符串拼接。<br>我们还可以继续往下想，序对中的第二个元素不一定非得是字符串，其实可以扩展到任意 monoid。在 compose 中使用 mappend，在 identity 中使用 mempty。一个完善的 Writer 可以支持任意满足幺半群（monoid）性质的日志库。</p>
+<p>to be continued…</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/22/今天聊聊数学（4.2）/" itemprop="url">
                   今天聊聊数学（4.2）
                 </a>
@@ -931,7 +1034,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
